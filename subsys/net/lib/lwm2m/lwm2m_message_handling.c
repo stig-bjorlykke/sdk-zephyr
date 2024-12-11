@@ -446,6 +446,10 @@ void lwm2m_engine_context_close(struct lwm2m_ctx *client_ctx)
 	coap_pendings_clear(client_ctx->pendings, ARRAY_SIZE(client_ctx->pendings));
 	coap_replies_clear(client_ctx->replies, ARRAY_SIZE(client_ctx->replies));
 
+#if defined(CONFIG_LWM2M_DTLS_SUPPORT)
+	client_ctx->desthostname = NULL;
+	client_ctx->desthostnamelen = 0;
+#endif
 
 	client_ctx->connection_suspended = false;
 #if defined(CONFIG_LWM2M_QUEUE_MODE_ENABLED)
